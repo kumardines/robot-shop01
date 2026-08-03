@@ -2,11 +2,10 @@ FROM golang:1.24
 
 WORKDIR /go/src/app
 
-COPY go.mod .
-COPY go.sum .
+COPY *.go ./
 
-RUN go mod download
+RUN go mod init dispatch
+RUN go mod tidy
+RUN go build -o dispatch
 
-COPY . .
-
-RUN go build -o dispatch .
+CMD ["./dispatch"]
